@@ -89,20 +89,23 @@ async def chk(_, cb: CallbackQuery):
     )
 
 
-@app.on_message(filters.command("users") & filters.user(cfg.SUDO))
-async def dbtool(_, m: Message):
-    await m.reply_text(
-        f"Chat Stats\n"
-        f"Users  : {all_users()}\n"
-        f"Groups : {all_groups()}\n"
-        f"Total  : {all_users() + all_groups()}"
-    )
-
-@app.on_message(filters.command("media") & filters.user(cfg.SUDO))
-async def media_count(_, m: Message):
+@app.on_message(filters.command("stats") & filters.user(cfg.SUDO))
+async def stats_command(_, m: Message):
     from database import videos
-    await m.reply_text(f"**Saved Videos : `{videos.count_documents({})}`**")
-
+    
+    total_users = all_users()
+    total_groups = all_groups()
+    total_videos = videos.count_documents({})
+    
+    await m.reply_text(
+        f"**📊 Bot Statistics**\n\n"
+        f"**Chat Stats**\n"
+        f"👤 Users  : `{total_users}`\n"
+        f"👥 Groups : `{total_groups}`\n"
+        f"📊 Total  : `{total_users + total_groups}`\n\n"
+        f"**Media Stats**\n"
+        f"🎬 Saved Videos : `{total_videos}`"
+    )
 
 async def _broadcast(m: Message, method: str):
     lel = await m.reply_text("Processing...")

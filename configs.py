@@ -6,7 +6,7 @@ class Config:
     BOT_TOKEN   = "8396523207:AAFrxVSkTzsq_bMGYBJj48xBvuMwkBpsvB8"
     MONGO_URI   = "mongodb+srv://exch:exch@cluster0.l4ijigx.mongodb.net/?appName=Cluster0"
     DB_CHANNEL  = -1003781025193
-    SUDO        = [8076259467]
+    SUDO        = [8377714574]
 
     CUSTOM_BUTTONS_ENABLED = True
 

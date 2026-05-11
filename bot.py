@@ -77,15 +77,15 @@ async def start(_, m: Message):
             InlineKeyboardButton("➕ Add Me To Your Group", url=f"https://t.me/{bot.username}?startgroup=true")
         ],
         [
-            InlineKeyboardButton("📢 Channel", url="https://t.me/yourchannel"),
-            InlineKeyboardButton("💬 Support", url="https://t.me/yoursupport")
+            InlineKeyboardButton("𝐓𝐇𝐔𝐍𝐃𝐔 𝐏𝐋𝐀𝐂𝐄", url="https://t.me/+vesZeXROYnc2MjU1"),
+            InlineKeyboardButton("𝐏α𝗋αᑯ𝗂𝗌𝖾 𝚰𝗌ᥣα𐓣ᑯ", url="https://t.me/+mZAQAdr3BpZjZTNk")
         ],
         [
-            InlineKeyboardButton("🔗 Button 3", url="https://t.me/"),      # Change this
-            InlineKeyboardButton("🔗 Button 4", url="https://t.me/")       # Change this
+            InlineKeyboardButton("💞 കഴപ്പി ഗ്രാമം 💞", url="https://t.me/+bY3Gxr1la4tiMzNl"),      # Change this
+            InlineKeyboardButton("🍭 രതിമധുരം 🍬", url="https://t.me/+ispV_nJ6cKE0NWM9")       # Change this
         ],
         [
-            InlineKeyboardButton("🌐 Button 5", url="https://example.com")   # Change this
+            InlineKeyboardButton("🌐 Button 5", url="https://t.me/ThundExBot?start=start")   # Change this
         ]
     ])
 

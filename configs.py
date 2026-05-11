@@ -12,7 +12,7 @@ class Config:
 
     CUSTOM_BUTTONS = [
         [
-            InlineKeyboardButton("Example 1", url="https://t.me/example"),
+            InlineKeyboardButton("𝐕𝐈𝐏 𝐃𝐄𝐌𝐎", url="https://t.me/+ujfAp7uNmdEzYjMx"),
             InlineKeyboardButton("Example 2", url="https://t.me/example"),
         ],
         [

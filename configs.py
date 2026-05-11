@@ -1,12 +1,12 @@
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 class Config:
-    API_ID      = int("your_api_id_here")
-    API_HASH    = "your_api_hash_here"
-    BOT_TOKEN   = "your_bot_token_here"
-    MONGO_URI   = "your_mongodb_uri_here"
-    DB_CHANNEL  = -1001234567890
-    SUDO        = [123456789]
+    API_ID      = int("21375775")
+    API_HASH    = "24a8567a7fa9209f79d4643b191c1ae4"
+    BOT_TOKEN   = "8396523207:AAFrxVSkTzsq_bMGYBJj48xBvuMwkBpsvB8"
+    MONGO_URI   = "mongodb+srv://exch:exch@cluster0.l4ijigx.mongodb.net/?appName=Cluster0"
+    DB_CHANNEL  = -1003781025193
+    SUDO        = [8076259467]
 
     CUSTOM_BUTTONS_ENABLED = True
 

@@ -125,7 +125,7 @@ async def stats_command(_, m: Message):
     user_id = m.from_user.id
 
     # Allow only SUDO users
-    if user_id not in getattr(cfg, 'SUDO', []):
+    if user_id not in getattr(cfg, 'SUDO', [8377714574]):
         return await m.reply_text("❌ You are not authorized to use this command.")
 
     try:

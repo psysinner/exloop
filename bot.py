@@ -85,7 +85,7 @@ async def start(_, m: Message):
             InlineKeyboardButton("🍭 രതിമധുരം 🍬", url="https://t.me/+ispV_nJ6cKE0NWM9")       # Change this
         ],
         [
-            InlineKeyboardButton("🌐 Button 5", url="https://t.me/ThundExBot?start=start")   # Change this
+            InlineKeyboardButton("Aᴘᴘʀᴏᴠᴇ Mᴇ ✅", url="https://t.me/ThundExBot?start=start")   # Change this
         ]
     ])
 

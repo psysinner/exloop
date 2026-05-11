@@ -5,7 +5,6 @@ class Config:
     API_HASH    = "your_api_hash_here"
     BOT_TOKEN   = "your_bot_token_here"
     MONGO_URI   = "your_mongodb_uri_here"
-    CHANNEL_ID  = -1001234567890
     DB_CHANNEL  = -1001234567890
     SUDO        = [123456789]
 

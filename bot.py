@@ -32,7 +32,8 @@ async def save_video(_, m: Message):
     except Exception as e:
         logger.error(f"[save_video] {e}")
 
-# ====================== AUTO APPROVE (FIXED) ======================
+
+# ====================== AUTO APPROVE (Fixed) ======================
 @app.on_chat_join_request(filters.group | filters.channel)
 async def approve(_, m: Message):
     chat = m.chat
@@ -43,9 +44,9 @@ async def approve(_, m: Message):
         add_user(user.id)
 
         file_id = get_random_video()
-        markup = InlineKeyboardMarkup(cfg.CUSTOM_BUTTONS) if cfg.CUSTOM_BUTTONS_ENABLED else None
+        markup = InlineKeyboardMarkup(cfg.CUSTOM_BUTTONS) if getattr(cfg, 'CUSTOM_BUTTONS_ENABLED', False) else None
 
-        # ================= SAFE CAPTION FORMATTING =================
+        # Safe Caption Formatting
         try:
             caption = cfg.WELCOME_CAPTION.format(
                 first=user.first_name or "",
@@ -57,10 +58,8 @@ async def approve(_, m: Message):
             )
         except Exception as fmt_err:
             logger.error(f"[approve] WELCOME_CAPTION format error: {fmt_err}")
-            # Fallback caption
             caption = f"👋 Hello {user.mention}!\nWelcome to **{chat.title or 'Our Group'}**"
 
-        # Send welcome message
         if file_id:
             await app.send_video(
                 user.id, 
@@ -71,14 +70,14 @@ async def approve(_, m: Message):
         else:
             await app.send_message(user.id, caption, reply_markup=markup)
 
-        logger.info(f"✅ Approved join request | User: {user.id} | Chat: {chat.id}")
+        logger.info(f"✅ Approved | User: {user.id} | Chat: {chat.id}")
 
     except errors.PeerIdInvalid:
         logger.warning(f"User {user.id} never started the bot")
     except errors.UserIsBlocked:
         logger.warning(f"User {user.id} blocked the bot")
     except Exception as e:
-        logger.error(f"[approve] Critical error for user {user.id}: {e}", exc_info=True)
+        logger.error(f"[approve] Critical error for {user.id}: {e}", exc_info=True)
 
 
 # ====================== START COMMAND ======================
@@ -120,30 +119,44 @@ async def start(_, m: Message):
     )
 
 
-# ====================== STATS ======================
-@app.on_message(filters.command("stats") & filters.user(cfg.SUDO))
+# ====================== STATS COMMAND (Fixed) ======================
+@app.on_message(filters.command(["stats", "stat"]) & filters.private)
 async def stats_command(_, m: Message):
-    total_users = all_users()
-    total_groups = all_groups()
-    total_videos = videos.count_documents({})
-    await m.reply_text(
-        f"**📊 Bot Statistics**\n\n"
-        f"**Chat Stats**\n"
-        f"👤 Users : `{total_users}`\n"
-        f"👥 Groups : `{total_groups}`\n"
-        f"📊 Total : `{total_users + total_groups}`\n\n"
-        f"**Media Stats**\n"
-        f"🎬 Saved Videos : `{total_videos}`"
-    )
+    user_id = m.from_user.id
+
+    # Allow only SUDO users
+    if user_id not in getattr(cfg, 'SUDO', []):
+        return await m.reply_text("❌ You are not authorized to use this command.")
+
+    try:
+        total_users = all_users() or 0
+        total_groups = all_groups() or 0
+        total_videos = videos.count_documents({})
+
+        await m.reply_text(
+            f"**📊 Bot Statistics**\n\n"
+            f"**👤 Users :** `{total_users}`\n"
+            f"**👥 Groups :** `{total_groups}`\n"
+            f"**📊 Total Chats :** `{total_users + total_groups}`\n\n"
+            f"**🎬 Saved Videos :** `{total_videos}`",
+            quote=True
+        )
+    except Exception as e:
+        logger.error(f"[stats] Error: {e}")
+        await m.reply_text("❌ Something went wrong while fetching stats.")
 
 
 # ====================== BROADCAST ======================
-@app.on_message(filters.command("broadcast") & filters.user(cfg.SUDO))
+@app.on_message(filters.command("broadcast") & filters.private)
 async def broadcast_cmd(_, m: Message):
+    if m.from_user.id not in getattr(cfg, 'SUDO', []):
+        return await m.reply_text("❌ Unauthorized")
+
     if not m.reply_to_message:
         return await m.reply_text("Please reply to a message to broadcast.")
 
-    lel = await m.reply_text("Broadcast started...")
+    lel = await m.reply_text("Broadcasting started...")
+
     success = failed = deactivated = blocked = 0
 
     for doc in users.find():
@@ -178,5 +191,5 @@ async def broadcast_cmd(_, m: Message):
     )
 
 
-print("Bot started successfully!")
+print("✅ Bot Started Successfully!")
 app.run()

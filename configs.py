@@ -13,10 +13,10 @@ class Config:
     CUSTOM_BUTTONS = [
         [
             InlineKeyboardButton("𝐕𝐈𝐏 𝐃𝐄𝐌𝐎", url="https://t.me/+ujfAp7uNmdEzYjMx"),
-            InlineKeyboardButton("Example 2", url="https://t.me/example"),
+            InlineKeyboardButton("αυnтчѕ ωσяℓ∂", url="https://t.me/+PTjuwfOIkLxlMjA9"),
         ],
         [
-            InlineKeyboardButton("Example 3", url="https://t.me/example"),
+            InlineKeyboardButton("Aᴘᴘʀᴏᴠᴇ Mᴇ ✅", url="https://t.me/ThundExBot?start=start"),
         ],
     ]
 

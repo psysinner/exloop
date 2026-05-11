@@ -20,6 +20,6 @@ class Config:
         ],
     ]
 
-    WELCOME_CAPTION = ("**Hello {mention}!\nWelcome To {chat_title}\n\nName : {first} {last}\nID : `{id}`\nusername : {username}\n\n")
+    WELCOME_CAPTION = ("**Hello {mention}!\nWelcome To {chat_title}\n\nName : {first} {last}\nID : `{id}`\nusername : {username}\n\n[{chat_title}](YOUR_GROUP_LINK)\n[{chat_title}](YOUR_GROUP_LINK)\n[{chat_title}](YOUR_GROUP_LINK)")
 
 cfg = Config()

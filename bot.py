@@ -65,30 +65,6 @@ async def start(_, m: Message):
         reply_markup=keyboard
     )
 
-@app.on_callback_query(filters.regex("chk"))
-async def chk(_, cb: CallbackQuery):
-    try:
-        await app.get_chat_member(cfg.CHANNEL_ID, cb.from_user.id)
-    except errors.UserNotParticipant:
-        await cb.answer("Not requested. Request then try again.", show_alert=True)
-        return
-    except Exception as e:
-        print(f"[chk] {e}")
-        return
-
-    keyboard = InlineKeyboardMarkup([[
-        InlineKeyboardButton("Channel", url="https://t.me/telegram"),
-        InlineKeyboardButton("Support", url="https://t.me/telegram")
-    ]])
-    add_user(cb.from_user.id)
-    await cb.edit_message_text(
-        f"Hello {cb.from_user.mention}!\n"
-        "I am an auto approve join request bot.\n"
-        "Add me to your chat and promote me to admin with add members permission.",
-        reply_markup=keyboard
-    )
-
-
 @app.on_message(filters.command("stats") & filters.user(cfg.SUDO))
 async def stats_command(_, m: Message):
     from database import videos
@@ -107,31 +83,30 @@ async def stats_command(_, m: Message):
         f"🎬 Saved Videos : `{total_videos}`"
     )
 
-async def _broadcast(m: Message, method: str):
-    lel = await m.reply_text("Processing...")
+@app.on_message(filters.command("broadcast") & filters.user(cfg.SUDO))
+async def broadcast_cmd(_, m: Message):
+    if not m.reply_to_message:
+        await m.reply_text("Reply to a message to broadcast it.")
+        return
+
+    lel = await m.reply_text("Processing broadcast...")
     success = failed = deactivated = blocked = 0
 
-    for doc in users.find():
+    for doc in users.find():  # assuming 'users' collection is accessible
         uid = int(doc["user_id"])
         try:
-            if method == "copy":
-                await m.reply_to_message.copy(uid)
-            else:
-                await m.reply_to_message.forward(uid)
+            await m.reply_to_message.copy(uid)
             success += 1
         except FloodWait as ex:
             await asyncio.sleep(ex.value)
             try:
-                if method == "copy":
-                    await m.reply_to_message.copy(uid)
-                else:
-                    await m.reply_to_message.forward(uid)
+                await m.reply_to_message.copy(uid)
                 success += 1
             except Exception:
                 failed += 1
         except errors.InputUserDeactivated:
             deactivated += 1
-            remove_user(doc["user_id"])
+            remove_user(doc["user_id"])  # assuming you have this function
         except errors.UserIsBlocked:
             blocked += 1
         except Exception as e:
@@ -139,21 +114,12 @@ async def _broadcast(m: Message, method: str):
             failed += 1
 
     await lel.edit(
-        f"Sent: {success}\n"
-        f"Failed: {failed}\n"
-        f"Blocked: {blocked}\n"
-        f"Deactivated: {deactivated}"
+        f"✅ Broadcast completed\n\n"
+        f"📨 Sent: {success}\n"
+        f"❌ Failed: {failed}\n"
+        f"🚫 Blocked: {blocked}\n"
+        f"📴 Deactivated: {deactivated}"
     )
-
-
-@app.on_message(filters.command("bcast") & filters.user(cfg.SUDO))
-async def bcast(_, m: Message):
-    await _broadcast(m, "copy")
-
-
-@app.on_message(filters.command("fcast") & filters.user(cfg.SUDO))
-async def fcast(_, m: Message):
-    await _broadcast(m, "forward")
 
 print("Bot started!")
 app.run()

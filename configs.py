@@ -20,6 +20,6 @@ class Config:
         ],
     ]
 
-    WELCOME_CAPTION = ("**Hello Welcome\n\n 💋 𝐇𝐨𝐭 𝐑𝐨𝐦𝐚𝐧𝐜𝐞 👸 - t.me/+0A55hBJFss05ZTYx \n 💞 നീലത്താമര 💙 - t.me/+KLxi4bQa7eY5NDkx \n💥𝘽𝙊𝙇𝙇𝙔 𝘾𝙐𝙇𝙏𝙕💥 - t.me/+eQ7Bvlyc1dlhOGNl")
+    WELCOME_CAPTION = ("**Hello Welcome\n\n 💋 𝐇𝐨𝐭 𝐑𝐨𝐦𝐚𝐧𝐜𝐞 👸 - t.me/+0A55hBJFss05ZTYx \n\n 💞 നീലത്താമര 💙 - t.me/+KLxi4bQa7eY5NDkx \n\n 💥𝘽𝙊𝙇𝙇𝙔 𝘾𝙐𝙇𝙏𝙕💥 - t.me/+eQ7Bvlyc1dlhOGNl")
 
 cfg = Config()

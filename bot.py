@@ -88,7 +88,7 @@ async def start(_, m: Message):
     keyboard = InlineKeyboardMarkup([
         [InlineKeyboardButton("➕ Add Me To Your Group", url=f"https://t.me/{bot.username}?startgroup=true")],
         [
-            InlineKeyboardButton("𝐓𝐇𝐔𝐍𝐃𝐔 𝐏𝐋𝐀𝐂𝐄", url="https://t.me/+vesZeXROYnc2MjU1"),
+            InlineKeyboardButton("𝐓𝐇𝐔𝐍𝐃𝐔 𝐏𝐋𝐀𝐂𝐄", url="http://t.me/+_pBlnbvqhw8wYzhh"),
             InlineKeyboardButton("𝐏α𝗋αᑯ𝗂𝗌𝖾 𝚰𝗌ᥣα𐓣ᑯ", url="https://t.me/+mZAQAdr3BpZjZTNk")
         ],
         [
